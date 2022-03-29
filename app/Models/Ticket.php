@@ -8,4 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class Ticket extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'description',
+        'priority',
+    ];
+
+    protected $attributes = [
+        'resolved' => false,
+    ];
+
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
 }
