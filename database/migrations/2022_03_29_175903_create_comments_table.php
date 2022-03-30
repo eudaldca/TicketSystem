@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
+            $table->integer('ticket_id');
+            $table->text('content');
             $table->timestamps();
         });
     }
