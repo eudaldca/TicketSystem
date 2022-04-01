@@ -2,10 +2,12 @@
 
 namespace Database\Factories;
 
+use App\Models\Ticket;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\DB;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Comment>
+ * @extends Factory
  */
 class CommentFactory extends Factory
 {
@@ -16,8 +18,14 @@ class CommentFactory extends Factory
      */
     public function definition()
     {
+        $ticket_id = $this->faker->randomElement(Db::table('tickets')->pluck('id'));
+        $ticket = Ticket::find($ticket_id);
+        $users = [$ticket->assignee->id, $ticket->issuer->id];
         return [
-            //
+            'content' => $this->faker->realText(),
+            'action' => $this->faker->numberBetween(0, 1),
+            'ticket_id' => $ticket_id,
+            'user_id' => $this->faker->randomElement($users),
         ];
     }
 }

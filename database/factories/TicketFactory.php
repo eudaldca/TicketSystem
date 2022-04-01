@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Ticket;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @extends Factory<Ticket>
@@ -17,8 +18,17 @@ class TicketFactory extends Factory
      */
     public function definition(): array
     {
+        $users = Db::table('users')->pluck('id');
+        $categories = Db::table('categories')->pluck('id');
+        $categories->add(null);
         return [
-            //
+            'title' => $this->faker->realText(50),
+            'description' => $this->faker->realText(500),
+            'priority' => $this->faker->numberBetween(0, 2),
+            'status' => $this->faker->numberBetween(0, 1),
+            'assignee_id' => $this->faker->randomElement($users),
+            'issuer_id' => $this->faker->randomElement($users),
+            'category_id' => $this->faker->randomElement($categories),
         ];
     }
 }

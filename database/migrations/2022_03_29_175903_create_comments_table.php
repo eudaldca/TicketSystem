@@ -1,11 +1,12 @@
 <?php
 
+use App\Models\Ticket;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -15,8 +16,10 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->integer('ticket_id');
             $table->text('content');
+            $table->integer('action')->nullable();
+            $table->foreignIdFor(Ticket::class)->index()->nullable()->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(User::class)->index()->nullable()->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
