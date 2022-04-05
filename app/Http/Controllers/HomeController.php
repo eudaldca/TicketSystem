@@ -24,7 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $test = Ticket::find(1)->issuer;
+        $test = Ticket::find(1)->comments;
         dd($test);
         return view('home');
     }
