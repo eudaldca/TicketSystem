@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreTicketRequest;
 use App\Http\Requests\UpdateTicketRequest;
 use App\Models\Ticket;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Response;
 
 class TicketController extends Controller
@@ -17,11 +18,11 @@ class TicketController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @return Renderable
      */
     public function index()
     {
-        //
+        return view('tickets.show');
     }
 
     /**
