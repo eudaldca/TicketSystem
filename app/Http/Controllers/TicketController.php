@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreTicketRequest;
 use App\Http\Requests\UpdateTicketRequest;
 use App\Models\Ticket;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Response;
 
 class TicketController extends Controller
@@ -26,7 +26,7 @@ class TicketController extends Controller
         return view('tickets.show');
     }
 
-    public function list()
+    public function list(): LengthAwarePaginator
     {
         return Ticket::paginate(10);
     }
