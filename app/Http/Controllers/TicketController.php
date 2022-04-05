@@ -6,6 +6,7 @@ use App\Http\Requests\StoreTicketRequest;
 use App\Http\Requests\UpdateTicketRequest;
 use App\Models\Ticket;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Response;
 
 class TicketController extends Controller
@@ -23,6 +24,11 @@ class TicketController extends Controller
     public function index()
     {
         return view('tickets.show');
+    }
+
+    public function list()
+    {
+        return Ticket::paginate(10);
     }
 
     /**
