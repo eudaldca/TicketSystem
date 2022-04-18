@@ -23,7 +23,8 @@ class TicketController extends Controller
      */
     public function index()
     {
-        return view('tickets.show');
+        $tickets = Ticket::paginate(25);
+        return view('tickets.show', compact('tickets'));
     }
 
     public function list(): LengthAwarePaginator
