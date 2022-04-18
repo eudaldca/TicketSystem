@@ -1,5 +1,5 @@
 @extends('layouts.app')
 
 @section('content')
-    <ticket-list></ticket-list>
+    Hello world
 @stop
