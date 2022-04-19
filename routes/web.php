@@ -15,7 +15,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::get('/tickets/list', [TicketController::class, 'list']);
 Route::resource('tickets', TicketController::class)->except(['edit']);
 Route::apiResource('categories', CategoryController::class);
 Route::apiResource('comments', CommentController::class);
+
+Route::prefix('datatables/')->name('datatables.')->group(function () {
+    Route::get('tickets', [TicketController::class, 'datatable'])->name('tickets'); 
+});

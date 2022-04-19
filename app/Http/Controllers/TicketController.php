@@ -23,13 +23,7 @@ class TicketController extends Controller
      */
     public function index()
     {
-        $tickets = Ticket::paginate(25);
-        return view('tickets.show', compact('tickets'));
-    }
-
-    public function list(): LengthAwarePaginator
-    {
-        return Ticket::paginate(10);
+        return view('tickets.show');
     }
 
     /**
@@ -85,5 +79,10 @@ class TicketController extends Controller
     public function destroy(Ticket $ticket)
     {
         //
+    }
+
+    public function datatable()
+    {
+        return Datatables::of(Ticket::query())->make(true);
     }
 }
