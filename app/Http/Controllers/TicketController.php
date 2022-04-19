@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreTicketRequest;
 use App\Http\Requests\UpdateTicketRequest;
 use App\Models\Ticket;
+use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Response;
+use Yajra\DataTables\Facades\DataTables;
 
 class TicketController extends Controller
 {
@@ -81,8 +83,17 @@ class TicketController extends Controller
         //
     }
 
+    /**
+     * @throws Exception
+     */
     public function datatable()
     {
-        return Datatables::of(Ticket::query())->make(true);
+        $model = Ticket::query();
+        return Datatables::of($model)
+            ->addColumn('issuer', fn(Ticket $ticket) => $ticket->issuer->full_name)
+            ->addColumn('assignee', fn(Ticket $ticket) => $ticket->assignee->full_name)
+            ->addColumn('category', fn(Ticket $ticket) => $ticket->category->name ?? "")
+            ->addColumn('created', fn(Ticket $ticket) => $ticket->created_at->diffForHumans())
+            ->make(true);
     }
 }

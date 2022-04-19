@@ -13,5 +13,3 @@ const mix = require('laravel-mix');
 
 mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
-    .copy('node_modules/datatables.net-dt/css/jquery.dataTables.min.css', 'public/css')
-    .copy('node_modules/datatables.net/js/jquery.dataTables.min.js', 'public/js');

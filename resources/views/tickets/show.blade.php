@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header">{{ __('messages.tickets') }}</div>
                     <div class="card-body">
-                        <table class="table table-striped ">
+                        <table class="table table-striped" id="tickets-dt">
                             <thead>
                             <tr>
                                 <th scope="col">{{ __('messages.issuer') }}</th>
@@ -38,9 +38,18 @@
     </div>
 @stop
 
-@section('extra-css')
-
-@stop
 @section('extra-js')
+    @parent
+    <script>
+        window.addEventListener('load', function () {
+            $('#tickets-dt').dataTable({
+                "ajax": {
+                    "url": "{{ route('datatables.tickets') }}",
+                },
+                "data": [
 
+                ]
+            });
+        });
+    </script>
 @stop
