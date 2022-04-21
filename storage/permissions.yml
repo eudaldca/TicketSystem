@@ -1,0 +1,20 @@
+groups:
+  - admin:
+      - tickets.see.own
+      - tickets.see.all
+      - tickets.create
+      - tickets.edit.own
+      - tickets.edit.all
+      - tickets.assign.self
+      - tickets.assign.any
+      - categories.add
+      - categories.remove
+      - categories.edit
+      - comment.create.own
+      - comment.create.all
+  - default:
+      - tickets.see.own
+      - tickets.create
+      - tickets.edit.own
+      - comment.create.own
+      - comment.create.all
