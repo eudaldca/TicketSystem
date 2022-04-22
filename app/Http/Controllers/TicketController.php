@@ -87,9 +87,16 @@ class TicketController extends Controller
     /**
      * @throws Exception
      */
-    public function datatable()
+    public function datatable(Request $request)
     {
+        $status = $request["status"];
         $model = Ticket::with(['issuer', 'category', 'assignee']);
+
+        if ($status >= 0) {
+            $model = $model->where('status', "=", $status);
+        }
+
+        $model = $model->select('tickets.*');
         return Datatables::eloquent($model)
             ->addColumn('created', fn(Ticket $ticket) => $ticket->created_at->diffForHumans())
             ->make();
