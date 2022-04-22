@@ -7,6 +7,8 @@ use App\Http\Requests\UpdateTicketRequest;
 use App\Models\Ticket;
 use Exception;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Yajra\DataTables\Facades\DataTables;
@@ -41,7 +43,6 @@ class TicketController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param StoreTicketRequest $request
      * @return Response
      */
     public function store(StoreTicketRequest $request)
@@ -51,20 +52,16 @@ class TicketController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param Ticket $ticket
-     * @return Response
      */
-    public function show(Ticket $ticket)
+    public function show(Ticket $ticket): View
     {
-        return view('tickets.show');
+        $ticket->load(['comments.user', 'issuer', 'assignee']);
+        return view('tickets.show', compact('ticket'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param UpdateTicketRequest $request
-     * @param Ticket $ticket
      * @return Response
      */
     public function update(UpdateTicketRequest $request, Ticket $ticket)
@@ -75,7 +72,6 @@ class TicketController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Ticket $ticket
      * @return Response
      */
     public function destroy(Ticket $ticket)
@@ -86,7 +82,7 @@ class TicketController extends Controller
     /**
      * @throws Exception
      */
-    public function datatable(Request $request)
+    public function datatable(Request $request): JsonResponse
     {
         $status = $request["status"];
         $model = Ticket::with(['issuer', 'category', 'assignee']);
