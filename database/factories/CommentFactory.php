@@ -23,7 +23,7 @@ class CommentFactory extends Factory
         $users = [$ticket->assignee->id, $ticket->issuer->id];
         return [
             'content' => $this->faker->realText(),
-            'action' => $this->faker->numberBetween(0, 1),
+            'action' => $this->faker->boolean(20) ? $this->faker->numberBetween(0, 1) : null,
             'ticket_id' => $ticket_id,
             'user_id' => $this->faker->randomElement($users),
         ];
