@@ -6,10 +6,9 @@ use App\Http\Requests\StoreTicketRequest;
 use App\Http\Requests\UpdateTicketRequest;
 use App\Models\Ticket;
 use Exception;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
 class TicketController extends Controller
@@ -26,7 +25,7 @@ class TicketController extends Controller
      */
     public function index()
     {
-        return view('tickets.show');
+        return view('tickets.index');
     }
 
     /**
@@ -58,7 +57,7 @@ class TicketController extends Controller
      */
     public function show(Ticket $ticket)
     {
-        //
+        return view('tickets.show');
     }
 
     /**
