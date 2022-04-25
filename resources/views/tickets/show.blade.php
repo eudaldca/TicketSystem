@@ -22,7 +22,7 @@
                     </div>
                     <div class="col-12 col-sm-6 col-md-4">
                         <h4><b>{{ __('messages.category') }}</b></h4>
-                        <p>{{ $ticket->category->name }}</p>
+                        <p>{{ $ticket->category->name ?? "" }}</p>
                     </div>
                     <div class="col-12 col-sm-6 col-md-4">
                         <h4><b>{{ __('messages.created') }}</b></h4>
