@@ -1,6 +1,5 @@
 groups:
   - admin:
-      - tickets.see.own
       - tickets.see.all
       - tickets.create
       - tickets.edit.own
@@ -10,11 +9,14 @@ groups:
       - categories.add
       - categories.remove
       - categories.edit
-      - comment.create.own
       - comment.create.all
-  - default:
-      - tickets.see.own
+  - it:
+      - tickets.see.all
       - tickets.create
       - tickets.edit.own
-      - comment.create.own
+      - tickets.edit.all
+      - tickets.assign.self
       - comment.create.all
+  - default:
+      - tickets.create
+      - tickets.edit.own
