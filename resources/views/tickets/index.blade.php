@@ -82,7 +82,7 @@
                     {data: 'issuer.full_name', name: 'issuer.full_name'},
                     {data: 'title', name: 'title', render: titleRender},
                     {data: 'priority', name: 'priority', render: data => priorityStrings[data]},
-                    {data: 'assignee.full_name', name: 'assignee.full_name'},
+                    {data: 'assignee.full_name', name: 'assignee.full_name', defaultContent: ""},
                     {data: 'category.name', name: 'category.name', defaultContent: ""},
                     {data: 'status', name: 'status', render: data => statusStrings[data]},
                     {data: 'created', name: 'created'},
