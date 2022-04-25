@@ -30,17 +30,18 @@
                     </div>
                 </div>
             </div>
-            <form class="col-12 col-md-4" id="commentForm">
+            <form class="col-12 col-md-4" id="commentForm" action="{{ route('comments.store') }}" method="post">
+                @csrf
                 <h3>Actions</h3>
                 <div class="form-floating">
                     <textarea class="form-control" id="commentBox" placeholder="{{ __('messages.comments') }}"
-                              style="height: 100px"></textarea>
+                              style="height: 100px" name="content"></textarea>
                     <label for="commentBox">{{ __('messages.comments') }}</label>
                 </div>
                 <div class="comment-buttons">
                     <input type="submit" name="" class="btn btn-primary" value="Comment">
                     @if($ticket->status === App\Models\Ticket::CLOSED)
-                        <input type="submit" name="{{ App\Models\Comment::OPEN }}" class="btn btn-success" value="Open">
+                        <input type="submit" name="action" value="{{ App\Models\Comment::OPEN }}" class="btn btn-success">
                     @endif
                     @if($ticket->status === App\Models\Ticket::OPEN)
                         <input type="submit" name="{{ App\Models\Comment::CLOSE }}" class="btn btn-danger" value="Close">
