@@ -19,10 +19,14 @@ class CommentController extends Controller
      *
      * @param StoreCommentRequest $request
      * @return Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function store(StoreCommentRequest $request)
     {
-        //
+        $comment = new Comment($request->all());
+        $this->authorize('create', $comment);
+        dd($request->all());
+        dd($request);
     }
 
 
