@@ -20,7 +20,10 @@ class CommentFactory extends Factory
     {
         $ticket_id = $this->faker->randomElement(Db::table('tickets')->pluck('id'));
         $ticket = Ticket::find($ticket_id);
-        $users = [$ticket->assignee->id, $ticket->issuer->id];
+        $users[] = $ticket->issuer->id;
+        if (isset($ticket->assignee)) {
+            $users[] = $ticket->assignee->id;
+        }
         return [
             'content' => $this->faker->realText(),
             'action' => $this->faker->boolean(20) ? $this->faker->numberBetween(0, 1) : null,

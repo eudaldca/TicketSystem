@@ -20,15 +20,14 @@ class TicketFactory extends Factory
     {
         $users = Db::table('users')->pluck('id');
         $categories = Db::table('categories')->pluck('id');
-        $categories->add(null);
         return [
             'title' => $this->faker->realText(50),
             'description' => $this->faker->realText(500),
             'priority' => $this->faker->numberBetween(0, 2),
             'status' => $this->faker->numberBetween(0, 1),
-            'assignee_id' => $this->faker->randomElement($users),
+            'assignee_id' => $this->faker->boolean(70) ? $this->faker->randomElement($users) : null,
             'issuer_id' => $this->faker->randomElement($users),
-            'category_id' => $this->faker->randomElement($categories),
+            'category_id' => $this->faker->boolean(20) ? $this->faker->randomElement($categories) : null,
         ];
     }
 }
