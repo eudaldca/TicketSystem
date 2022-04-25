@@ -17,6 +17,8 @@ groups:
       - tickets.edit.all
       - tickets.assign.self
       - comment.create.all
+      - comment.status.all
   - default:
       - tickets.create
       - tickets.edit.own
+      - comment.status.own
