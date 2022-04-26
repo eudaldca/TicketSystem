@@ -26,30 +26,5 @@ class CommentController extends Controller
         $comment = new Comment($request->all());
         $this->authorize('create', $comment);
         dd($request->all());
-        dd($request);
-    }
-
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param UpdateCommentRequest $request
-     * @param Comment $comment
-     * @return Response
-     */
-    public function update(UpdateCommentRequest $request, Comment $comment)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param Comment $comment
-     * @return Response
-     */
-    public function destroy(Comment $comment)
-    {
-        //
     }
 }

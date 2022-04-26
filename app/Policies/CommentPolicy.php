@@ -11,84 +11,29 @@ class CommentPolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can view any models.
+     * Determine whether the user can create comments.
      *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function viewAny(User $user)
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can view the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Comment  $comment
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function view(User $user, Comment $comment)
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can create models.
-     *
-     * @param  \App\Models\User  $user
+     * @param \App\Models\User $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function create(User $user, Comment $comment)
     {
+        // check if user can comment on tickets not issued by them
+        if ($comment->ticket->issuer_id !== $user->id
+            && !$user->hasPermission('comment.create.all')) {
+            return false;
+        }
+
+        // check if user can change status on tickets not issued by them
+        if ($comment->action !== null && !$user->hasPermission('comment.status.all')) {
+            if ($comment->ticket->issuer_id === $user->id) { // if own post
+                if (!$user->hasPermission('comment.status.own')) {
+                    return false;
+                }
+            } else { // if not own post and can't status all
+                return false;
+            }
+        }
         return true;
-    }
-
-    /**
-     * Determine whether the user can update the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Comment  $comment
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function update(User $user, Comment $comment)
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can delete the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Comment  $comment
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function delete(User $user, Comment $comment)
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can restore the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Comment  $comment
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function restore(User $user, Comment $comment)
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Comment  $comment
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function forceDelete(User $user, Comment $comment)
-    {
-        //
     }
 }
