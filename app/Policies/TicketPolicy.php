@@ -12,17 +12,6 @@ class TicketPolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can view any models.
-     *
-     * @param User $user
-     * @return Response|bool
-     */
-    public function viewAny(User $user)
-    {
-        //
-    }
-
-    /**
      * Determine whether the user can view the model.
      *
      * @param User $user
@@ -31,7 +20,7 @@ class TicketPolicy
      */
     public function view(User $user, Ticket $ticket)
     {
-        //
+        return $user->id === $ticket->issuer_id || $user->can('tickets.see.all');
     }
 
     /**
@@ -42,7 +31,7 @@ class TicketPolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->can('tickets.create');
     }
 
     /**
@@ -54,42 +43,7 @@ class TicketPolicy
      */
     public function update(User $user, Ticket $ticket)
     {
-        //
-    }
-
-    /**
-     * Determine whether the user can delete the model.
-     *
-     * @param User $user
-     * @param Ticket $ticket
-     * @return Response|bool
-     */
-    public function delete(User $user, Ticket $ticket)
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can restore the model.
-     *
-     * @param User $user
-     * @param Ticket $ticket
-     * @return Response|bool
-     */
-    public function restore(User $user, Ticket $ticket)
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     *
-     * @param User $user
-     * @param Ticket $ticket
-     * @return Response|bool
-     */
-    public function forceDelete(User $user, Ticket $ticket)
-    {
-        //
+        return $user->can('tickets.edit.all')
+            || ($user->id === $ticket->issuer_id && $user->can('tickets.edit.own'));
     }
 }
