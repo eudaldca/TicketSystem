@@ -16,31 +16,36 @@ trait HasPermissions
     public function hasPermission(string $permission): bool
     {
         $role = $this->role ?? 'default';
-        $permissions = $this->getGroupPermissions();
+        $groups = $this->getGroupPermissions();
 
-        // Permissions file error / not found
-        if ($permissions === null || !isset($permissions['groups'])) {
-            return false;
-        }
-        $groups = $permissions['groups'];
-        // Permission doesn't exist
-        if (!isset($groups[$role])) {
+        //No groups or permission doesn't exist
+        if (empty($groups) || !isset($groups[$role])) {
             return false;
         }
 
         return in_array($permission, $groups[$role]);
     }
 
-    /**
-     * @return mixed
-     */
-    private function getGroupPermissions(): mixed
+    private function getGroupPermissions(): array
     {
-        $permissions = Cache::get('permissions');
-        if ($permissions === null) {
-            $permissions = Yaml::parse(Storage::disk('local')->get('permissions.yaml'));
-            Cache::add('permissions', $permissions);
+        $groups = Cache::get('permissions');
+        if ($groups === null) {
+            $groups = $this->parsePermissions(
+                Yaml::parse(
+                    Storage::disk('local')->get('permissions.yaml')
+                ));
+
+            Cache::add('permissions', $groups);
         }
-        return $permissions;
+        return $groups;
+    }
+
+    private function parsePermissions($permissions): array
+    {
+        $groups = [];
+        foreach ($permissions['groups'] as $group => $perms) {
+            $groups[$group] = $perms;
+        }
+        return $groups;
     }
 }
