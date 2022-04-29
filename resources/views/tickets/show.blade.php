@@ -82,8 +82,3 @@
         </div>
     </div>
 @stop
-
-@section('extra-js')
-    @parent
-    <script src="{{ asset('js/ticket.js') }}"></script>
-@stop
