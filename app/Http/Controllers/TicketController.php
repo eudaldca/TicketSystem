@@ -60,11 +60,16 @@ class TicketController extends Controller
      */
     public function datatable(Request $request): JsonResponse
     {
-        $status = $request["status"];
+        $ticketStatus = $request["status"];
+        /** @var User $user */
+        $user = Auth::user();
         $model = Ticket::with(['issuer', 'category', 'assignee']);
 
-        if ($status >= 0) {
-            $model = $model->where('status', "=", $status);
+        if ($ticketStatus >= 0) {
+            $model = $model->where('status', "=", $ticketStatus);
+        }
+        if (!$user->hasPermission('tickets.see.all')) {
+            $model = $model->where('issuer_id', "=", $user->id);
         }
 
         $model = $model->select('tickets.*');
