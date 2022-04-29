@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
+
 class HomeController extends Controller
 {
-    public function __construct()
+    public function index(): Factory|View|Application
     {
-        $this->middleware('auth');
-    }
-
-    public function index()
-    {
-        return view('home');
+        return Auth::check() ? view('dashboard') : view('welcome');
     }
 }
