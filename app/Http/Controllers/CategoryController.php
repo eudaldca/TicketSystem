@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreCategoryRequest;
-use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Category;
-use Illuminate\Http\Response;
+use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
@@ -14,35 +12,31 @@ class CategoryController extends Controller
         $this->middleware('auth');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param StoreCategoryRequest $request
-     * @return Response
-     */
-    public function store(StoreCategoryRequest $request)
+    public function index()
+    {
+
+    }
+
+    public function create()
+    {
+
+    }
+
+    public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param UpdateCategoryRequest $request
-     * @param Category $category
-     * @return Response
-     */
-    public function update(UpdateCategoryRequest $request, Category $category)
+    public function show()
+    {
+
+    }
+
+    public function update(Request $request, Category $category)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param Category $category
-     * @return Response
-     */
     public function destroy(Category $category)
     {
         //
