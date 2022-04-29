@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header">{{ __('messages.tickets') }}</div>
                     <div class="card-body">
-                        <select id="status-select" class="form-select" aria-label="Default select example">
+                        <select id="status-select" class="form-select" aria-label="Ticket status filter">
                             <option value="-1">All</option>
                             <option selected value="0">Open</option>
                             <option value="1">Closed</option>
