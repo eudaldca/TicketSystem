@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreCommentRequest;
 use App\Models\Comment;
 use App\Models\Ticket;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
@@ -16,13 +16,9 @@ class CommentController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param StoreCommentRequest $request
-     * @return RedirectResponse
      * @throws AuthorizationException
      */
-    public function store(StoreCommentRequest $request): RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
         $comment = new Comment($request->all());
         $comment->ticket_id = $request['ticket_id'];
