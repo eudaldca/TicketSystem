@@ -30,29 +30,36 @@
                     </div>
                 </div>
             </div>
-            <form class="col-12 col-md-4" id="commentForm" action="{{ route('comments.store') }}" method="post">
-                @csrf
-                <h3>Actions</h3>
-                <div class="form-floating">
-                    <input type="hidden" name="ticket_id" value="{{ $ticket->id }}">
-                    <textarea class="form-control" id="commentBox" placeholder="{{ __('messages.comments') }}"
-                              style="height: 100px" name="content"></textarea>
-                    <label for="commentBox">{{ __('messages.comments') }}</label>
-                </div>
-                <div class="comment-buttons">
-                    <button type="submit" name="action" class="btn btn-primary">{{ __('messages.comment') }}</button>
-                    @if($ticket->status === App\Models\Ticket::CLOSED)
-                        <button type="submit" name="action" value="{{ App\Models\Comment::OPEN }}"
-                                class="btn btn-success">{{ __('messages.open') }}
-                        </button>
-                    @endif
-                    @if($ticket->status === App\Models\Ticket::OPEN)
-                        <button type="submit" name="action" value="{{ App\Models\Comment::CLOSE }}"
-                                class="btn btn-danger">{{ __('messages.close') }}
-                        </button>
-                    @endif
-                </div>
-            </form>
+            <div class="col-12 col-md-4">
+                @if($canComment)
+                    <form id="commentForm" action="{{ route('comments.store') }}" method="post">
+                        @csrf
+                        <h3>Actions</h3>
+                        <div class="form-floating">
+                            <input type="hidden" name="ticket_id" value="{{ $ticket->id }}">
+                            <textarea class="form-control" id="commentBox" placeholder="{{ __('messages.comments') }}"
+                                      style="height: 100px" name="content"></textarea>
+                            <label for="commentBox">{{ __('messages.comments') }}</label>
+                        </div>
+                        <div class="comment-buttons">
+                            <button type="submit" name="action"
+                                    class="btn btn-primary">{{ __('messages.comment') }}</button>
+                            @if($canChangeStatus)
+                                @if($ticket->status === App\Models\Ticket::CLOSED)
+                                    <button type="submit" name="action" value="{{ App\Models\Comment::OPEN }}"
+                                            class="btn btn-success">{{ __('messages.open') }}
+                                    </button>
+                                @endif
+                                @if($ticket->status === App\Models\Ticket::OPEN)
+                                    <button type="submit" name="action" value="{{ App\Models\Comment::CLOSE }}"
+                                            class="btn btn-danger">{{ __('messages.close') }}
+                                    </button>
+                                @endif
+                            @endif
+                        </div>
+                    </form>
+                @endif
+            </div>
         </div>
         <div class="row justify-content-center">
             <div class="col-md-10 card-list">

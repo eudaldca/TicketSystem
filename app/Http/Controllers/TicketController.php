@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreTicketRequest;
 use App\Http\Requests\UpdateTicketRequest;
 use App\Models\Ticket;
+use App\Models\User;
 use Exception;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
 class TicketController extends Controller
@@ -56,7 +58,13 @@ class TicketController extends Controller
     public function show(Ticket $ticket): View
     {
         $ticket->load(['comments.user', 'issuer', 'assignee']);
-        return view('tickets.show', compact('ticket'));
+        /** @var User $user */
+        $user = Auth::user();
+        $user->hasPermission('tickets.create');
+        $canChangeStatus = $user->hasPermission('comment.status.all')
+            || $user->id === $ticket->issuer_id && $user->hasPermission('comment.status.own');
+        $canComment = $user->id === $ticket->issuer_id || $user->hasPermission('comment.create.all');
+        return view('tickets.show', compact('ticket', 'canChangeStatus', 'canComment'));
     }
 
     /**
