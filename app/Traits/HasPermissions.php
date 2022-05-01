@@ -30,10 +30,8 @@ trait HasPermissions
     {
         $groups = Cache::get('permissions');
         if ($groups === null) {
-            $groups = $this->parsePermissions(
-                Yaml::parse(
-                    Storage::disk('local')->get('permissions.yaml')
-                ));
+            $groups = $this->parsePermissions(Yaml::parse(
+                Storage::disk('local')->get('permissions.yaml')));
 
             Cache::add('permissions', $groups);
         }

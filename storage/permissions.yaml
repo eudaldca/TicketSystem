@@ -1,24 +1,24 @@
 groups:
-  - admin:
-      - tickets.see.all
-      - tickets.create
-      - tickets.edit.own
-      - tickets.edit.all
-      - tickets.assign.self
-      - tickets.assign.any
-      - categories.add
-      - categories.remove
-      - categories.edit
-      - comment.create.all
-  - it:
-      - tickets.see.all
-      - tickets.create
-      - tickets.edit.own
-      - tickets.edit.all
-      - tickets.assign.self
-      - comment.create.all
-      - comment.status.all
-  - default:
-      - tickets.create
-      - tickets.edit.own
-      - comment.status.own
+  admin:
+    - tickets.see.all
+    - tickets.create
+    - tickets.edit.own
+    - tickets.edit.all
+    - tickets.assign.self
+    - tickets.assign.any
+    - categories.add
+    - categories.remove
+    - categories.edit
+    - comment.create.all
+  it:
+    - tickets.see.all
+    - tickets.create
+    - tickets.edit.own
+    - tickets.edit.all
+    - tickets.assign.self
+    - comment.create.all
+    - comment.status.all
+  default:
+    - tickets.create
+    - tickets.edit.own
+    - comment.status.own
