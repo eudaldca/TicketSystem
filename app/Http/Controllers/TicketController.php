@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Ticket;
-use App\Models\User;
 use Exception;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -27,19 +28,26 @@ class TicketController extends Controller
 
     public function create()
     {
-        //
+        $categories = Category::all();
+        return view('tickets.create', compact('categories'));
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function store(Request $request)
     {
-        //
+        $ticket = new Ticket($request->all());
+        $ticket->issuer_id = Auth::getUser()->id;
+        $this->authorize('create', $ticket);
+        $ticket->save();
+        return redirect()->route('tickets.show', compact('ticket'));
     }
 
     public function show(Ticket $ticket): View
     {
         $ticket->load(['comments.user', 'issuer', 'assignee']);
-        /** @var User $user */
-        $user = Auth::user();
+        $user = Auth::getUser();
         $user->hasPermission('tickets.create');
         $canChangeStatus = $user->hasPermission('comment.status.all')
             || $user->id === $ticket->issuer_id && $user->hasPermission('comment.status.own');
@@ -63,8 +71,7 @@ class TicketController extends Controller
     public function datatable(Request $request): JsonResponse
     {
         $ticketStatus = $request["status"];
-        /** @var User $user */
-        $user = Auth::user();
+        $user = Auth::getUser();
         $model = Ticket::with(['issuer', 'category', 'assignee']);
 
         if ($ticketStatus >= 0) {

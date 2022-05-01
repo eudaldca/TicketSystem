@@ -23,4 +23,8 @@ return [
     "ticket.comment.0" => ":name <b>opened the ticket</b>",
     "ticket.comment.1" => ":name <b>closed the ticket</b>",
     "comments" => "Comments",
+    "ticket.create" => "Create a new ticket",
+    "none" => "None",
+    "description" => "Description",
+
 ];

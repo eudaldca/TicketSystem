@@ -31,7 +31,7 @@ class TicketPolicy
      */
     public function create(User $user)
     {
-        return $user->can('tickets.create');
+        return $user->hasPermission('tickets.create');
     }
 
     /**

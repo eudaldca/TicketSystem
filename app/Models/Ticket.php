@@ -57,6 +57,7 @@ class Ticket extends Model
         'title',
         'description',
         'priority',
+        'category_id',
     ];
 
     protected $attributes = [
