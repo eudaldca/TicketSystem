@@ -32,16 +32,19 @@
                                     >{{ __('messages.categories.admin') }}</a>
                                 @endif
                                 @if($user->hasPermission('permissions.admin'))
-                                    <a class="btn btn-outline-warning" href="{{ route('categories.index') }}"
+                                    <a class="btn btn-outline-warning" href="{{ route('permissions.download') }}"
                                     >{{ __('messages.permissions.download') }}</a>
-                                        <form>
-                                            <div class="mb-3">
-                                                <label for="permissionsFile" class="form-label">Permissions file</label>
-                                                <input class="form-control" type="file" id="permissionsFile" accept=".yaml">
-                                            </div>
-                                            <button class="btn btn-warning" type="submit"
-                                            >{{ __('messages.permissions.upload') }}</button>
-                                        </form>
+                                    <form method="post" action="{{ route('permissions.upload') }}"
+                                          enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="mb-3">
+                                            <label for="permissionsFile" class="form-label">Permissions file</label>
+                                            <input class="form-control" name="permissions" type="file"
+                                                   id="permissionsFile" accept=".yaml" required>
+                                        </div>
+                                        <button class="btn btn-warning" type="submit"
+                                        >{{ __('messages.permissions.upload') }}</button>
+                                    </form>
                                 @endif
                             </div>
                         </div>
