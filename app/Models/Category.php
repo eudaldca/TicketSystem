@@ -18,8 +18,8 @@ use Illuminate\Support\Carbon;
  * @property string $name
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read Collection|Ticket[] $ticket
- * @property-read int|null $ticket_count
+ * @property-read Collection|Ticket[] $tickets
+ * @property-read int|null $tickets_count
  * @method static CategoryFactory factory(...$parameters)
  * @method static Builder|Category newModelQuery()
  * @method static Builder|Category newQuery()
@@ -39,7 +39,7 @@ class Category extends Model
         'color'
     ];
 
-    public function ticket(): HasMany
+    public function tickets(): HasMany
     {
         return $this->hasMany(Ticket::class);
     }

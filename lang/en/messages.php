@@ -30,4 +30,5 @@ return [
     "ticket.show" => "Show tickets",
     "permissions.download" => "Download permissions file",
     "permissions.upload" => "Upload permissions file",
+    "categories" => "categories",
 ];

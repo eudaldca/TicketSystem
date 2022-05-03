@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -14,7 +15,8 @@ class CategoryController extends Controller
 
     public function index()
     {
-
+        $categories = Category::withCount('tickets')->get();
+        return view('categories.index', compact('categories'));
     }
 
     public function create()
@@ -37,8 +39,13 @@ class CategoryController extends Controller
         //
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function destroy(Category $category)
     {
-        //
+        $this->authorize('admin', Category::class);
+        $category->delete();
+        return redirect()->route('categories.index');
     }
 }
