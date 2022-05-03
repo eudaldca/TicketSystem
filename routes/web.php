@@ -11,7 +11,7 @@ Auth::routes();
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::resource('tickets', TicketController::class)->except(['edit']);
-Route::resource('categories', CategoryController::class);
+Route::resource('categories', CategoryController::class)->except('show');
 Route::post('comment', [CommentController::class, 'store'])->name('comments.store');
 
 Route::prefix('datatables/')->name('datatables.')->group(function () {

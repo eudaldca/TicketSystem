@@ -31,4 +31,8 @@ return [
     "permissions.download" => "Download permissions file",
     "permissions.upload" => "Upload permissions file",
     "categories" => "categories",
+    "categories.edit" => "Edit category",
+    "category.name" => "Category name",
+    "category.update" => "Update category",
+
 ];

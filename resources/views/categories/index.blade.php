@@ -25,7 +25,11 @@
                                         <td>{{ $category->name }}</td>
                                         <td>{{ $category->tickets_count }}</td>
                                         <td>
+                                            <a href="{{ route('categories.edit', ['category' => $category->id]) }}"
+                                               class="text-black"><i
+                                                    class="bi bi-pencil-fill"></i></a>
                                             <form
+                                                style="display: inline"
                                                 action="{{ route('categories.destroy', ['category' => $category->id]) }}"
                                                 method="post">
                                                 @csrf
@@ -33,6 +37,7 @@
                                                 <button type="submit" class="transparent"><i
                                                         class="bi bi-trash-fill"></i></button>
                                             </form>
+
                                         </td>
                                     </tr>
                                 @endforeach
