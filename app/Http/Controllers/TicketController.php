@@ -71,11 +71,15 @@ class TicketController extends Controller
     public function datatable(Request $request): JsonResponse
     {
         $ticketStatus = $request["status"];
+        $ticketPriority = $request["priority"];
         $user = Auth::getUser();
         $model = Ticket::with(['issuer', 'category', 'assignee']);
 
         if ($ticketStatus >= 0) {
             $model = $model->where('status', "=", $ticketStatus);
+        }
+        if ($ticketPriority >= 0) {
+            $model = $model->where('priority', "=", $ticketPriority);
         }
         if (!$user->hasPermission('tickets.see.all')) {
             $model = $model->where('issuer_id', "=", $user->id);

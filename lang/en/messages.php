@@ -3,8 +3,10 @@
 return [
     "tickets" => "Tickets",
     "ticket" => "Ticket",
+    "status.-1" => "All",
     "status.0" => "Open",
     "status.1" => "Closed",
+    "priority.-1" => "All",
     "priority.0" => "Low",
     "priority.1" => "Medium",
     "priority.2" => "High",
