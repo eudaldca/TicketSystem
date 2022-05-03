@@ -20,26 +20,35 @@ class CategoryController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function index()
+    public function index(): Factory|View|Application
     {
         $this->authorize('admin', Category::class);
         $categories = Category::withCount('tickets')->get();
         return view('categories.index', compact('categories'));
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function edit(Category $category): Factory|View|Application
     {
         $this->authorize('admin', Category::class);
         return view('categories.edit', compact('category'));
     }
 
-    public function create()
+    /**
+     * @throws AuthorizationException
+     */
+    public function create(): Factory|View|Application
     {
         $this->authorize('admin', Category::class);
         return view('categories.create');
     }
 
-    public function store(Request $request)
+    /**
+     * @throws AuthorizationException
+     */
+    public function store(Request $request): RedirectResponse
     {
         $this->authorize('admin', Category::class);
         $category = new Category($request->all());
@@ -62,7 +71,7 @@ class CategoryController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function destroy(Category $category)
+    public function destroy(Category $category): RedirectResponse
     {
         $this->authorize('admin', Category::class);
         $category->delete();
