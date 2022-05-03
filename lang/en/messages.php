@@ -34,5 +34,6 @@ return [
     "categories.edit" => "Edit category",
     "category.name" => "Category name",
     "category.update" => "Update category",
+    "category.create" => "Create category",
 
 ];

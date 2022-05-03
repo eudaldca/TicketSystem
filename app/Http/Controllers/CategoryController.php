@@ -35,12 +35,16 @@ class CategoryController extends Controller
 
     public function create()
     {
-
+        $this->authorize('admin', Category::class);
+        return view('categories.create');
     }
 
     public function store(Request $request)
     {
-        //
+        $this->authorize('admin', Category::class);
+        $category = new Category($request->all());
+        $category->save();
+        return redirect()->route('categories.index');
     }
 
 

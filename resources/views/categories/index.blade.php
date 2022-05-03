@@ -8,6 +8,8 @@
                     <div class="card-header">{{ __('messages.categories') }}</div>
 
                     <div class="card-body">
+                        <a type="submit" href="{{ route('categories.create') }}"
+                           class="btn btn-success">{{ __('messages.category.create') }}</a>
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered ">
                                 <thead>
