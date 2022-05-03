@@ -25,13 +25,14 @@
                                         <td>{{ $category->name }}</td>
                                         <td>{{ $category->tickets_count }}</td>
                                         <td>
-                                            <form action="{{ route('categories.destroy', ['category' => $category->id]) }}" method="post">
+                                            <form
+                                                action="{{ route('categories.destroy', ['category' => $category->id]) }}"
+                                                method="post">
                                                 @csrf
                                                 @method('delete')
-                                                <button type="submit" class="transparent" ><i
+                                                <button type="submit" class="transparent"><i
                                                         class="bi bi-trash-fill"></i></button>
                                             </form>
-
                                         </td>
                                     </tr>
                                 @endforeach
