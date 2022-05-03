@@ -6,10 +6,9 @@ groups:
     - tickets.edit.all
     - tickets.assign.self
     - tickets.assign.any
-    - categories.add
-    - categories.remove
-    - categories.edit
+    - categories.admin
     - comment.create.all
+    - permissions.admin
   it:
     - tickets.see.all
     - tickets.create

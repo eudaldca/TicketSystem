@@ -26,5 +26,8 @@ return [
     "ticket.create" => "Create a new ticket",
     "none" => "None",
     "description" => "Description",
-
+    "categories.admin" => "Administrate Categories",
+    "ticket.show" => "Show tickets",
+    "permissions.download" => "Download permissions file",
+    "permissions.upload" => "Upload permissions file",
 ];

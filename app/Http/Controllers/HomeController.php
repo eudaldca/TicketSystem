@@ -11,6 +11,11 @@ class HomeController extends Controller
 {
     public function index(): Factory|View|Application
     {
-        return Auth::check() ? view('dashboard') : view('welcome');
+        if (Auth::check()) {
+            $user = Auth::getUser();
+            return view('dashboard', compact('user'));
+        } else {
+            return view('welcome');
+        }
     }
 }
