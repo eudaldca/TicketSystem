@@ -2,8 +2,8 @@ window._ = require('lodash');
 
 try {
     window.$ = window.jQuery = require('jquery');
-    require( 'datatables.net-bs5' )();
     require('bootstrap');
+    require( 'datatables.net-bs5' )();
 } catch (e) {}
 
 /**
